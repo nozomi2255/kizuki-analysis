@@ -1,5 +1,5 @@
 // ERRCグリッドの内容をHTMLに変換
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // ERRCグリッドの内容
     const errcGridContent = `
         <div class="errc-grid">
@@ -327,4 +327,138 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('errc-grid-content').innerHTML = errcGridContent;
     document.getElementById('market-analysis-content').innerHTML = marketAnalysisContent;
     document.getElementById('strategy-recommendations-content').innerHTML = strategyRecommendationsContent;
+    
+    // グラフ描画領域にChart.jsを描画
+    const canvasElement = document.getElementById('strategyCanvas');
+    const ctx = canvasElement.getContext('2d');
+
+    const labels = [
+        '基本機能の充実度', '使いやすさ', '内省支援', 'フィードバック機能',
+        'ジョブクラフティング支援', '組織貢献の可視化', '他システムとの連携性',
+        'コストパフォーマンス', 'モバイル対応', 'データ分析・活用'
+    ];
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'kizuki',
+                data: [7, 9, 10, 9, 10, 8, 7, 7, 9, 8],
+                borderColor: '#FF5733',
+                fill: false,
+            },
+            {
+                label: '従来の日報・勤怠システム（平均）',
+                data: [8, 7.5, 3, 5, 1.5, 5.5, 7, 8, 7, 6],
+                borderColor: '#3498DB',
+                fill: false,
+            },
+            {
+                label: '自己成長支援ツール（平均）',
+                data: [5, 6.8, 6.3, 8.5, 5, 6.5, 7, 5.7, 7.2, 7.3],
+                borderColor: '#2ECC71',
+                fill: false,
+            }
+        ]
+    };
+
+    new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'kizukiと競合カテゴリの戦略キャンバス比較',
+                    font: { size: 18 }
+                }
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 10,
+                    title: {
+                        display: true,
+                        text: '評価スコア（10点満点）'
+                    }
+                },
+                x: {
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 45
+                    }
+                }
+            }
+        }
+    });
+
+    // 全製品の戦略キャンバスグラフ（比較用）
+    const allProductsData = {
+      kizuki: [7, 9, 10, 9, 10, 8, 7, 7, 9, 8],
+      'gamba!': [9, 8, 4, 6, 2, 5, 7, 7, 8, 7],
+      PigeonCloud: [8, 7, 3, 5, 2, 6, 8, 8, 7, 6],
+      '日報くん': [7, 8, 3, 4, 1, 4, 6, 9, 6, 5],
+      ナノティ: [8, 7, 2, 5, 1, 5, 7, 8, 7, 6],
+      ワンオンワンツール: [5, 7, 8, 9, 6, 5, 6, 6, 7, 7],
+      '360度フィードバック': [4, 6, 7, 10, 5, 7, 5, 5, 6, 8],
+      タレントマネジメント: [6, 5, 6, 8, 7, 9, 8, 4, 7, 9],
+      Slackボット: [6, 9, 4, 7, 2, 4, 9, 8, 9, 5]
+    };
+
+    const colors = {
+      kizuki: '#FF5733',
+      'gamba!': '#3498DB',
+      PigeonCloud: '#2ECC71',
+      '日報くん': '#9B59B6',
+      ナノティ: '#F1C40F',
+      ワンオンワンツール: '#1ABC9C',
+      '360度フィードバック': '#E74C3C',
+      タレントマネジメント: '#34495E',
+      Slackボット: '#27AE60'
+    };
+
+    const allProductCanvas = document.getElementById('allProductsCanvas');
+    const allCtx = allProductCanvas.getContext('2d');
+
+    const allProductDatasets = Object.entries(allProductsData).map(([name, data]) => ({
+      label: name,
+      data: data,
+      borderColor: colors[name],
+      fill: false
+    }));
+
+    new Chart(allCtx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: allProductDatasets
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'kizukiと競合製品の戦略キャンバス',
+            font: { size: 18 }
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 10,
+            title: {
+              display: true,
+              text: '評価スコア（10点満点）'
+            }
+          },
+          x: {
+            ticks: {
+              maxRotation: 45,
+              minRotation: 45
+            }
+          }
+        }
+      }
+    });
 });

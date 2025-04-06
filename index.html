@@ -25,6 +25,7 @@
                 <li><a href="#errc-grid">ERRCグリッド</a></li>
                 <li><a href="#market-analysis">市場分析</a></li>
                 <li><a href="#strategy-recommendations">戦略提言</a></li>
+                <li><a href="all-reports.html">全レポート</a></li>
             </ul>
         </div>
     </nav>
@@ -46,11 +47,11 @@
                 <div class="content">
                     <h3>kizukiと競合製品の比較</h3>
                     <div class="image-container">
-                        <img src="images/strategic_canvas.png" alt="kizukiと競合製品の戦略キャンバス" class="full-width-image">
+                        <canvas id="allProductsCanvas" width="800" height="400"></canvas>
                     </div>
                     <h3>カテゴリ別比較</h3>
-                    <div class="image-container">
-                        <img src="images/strategic_canvas_category.png" alt="kizukiと競合カテゴリの戦略キャンバス比較" class="full-width-image">
+                    <div class="chart-container">
+                        <canvas id="strategyCanvas" width="800" height="400"></canvas>
                     </div>
                     <div class="analysis">
                         <h3>kizukiの強み</h3>
@@ -110,6 +111,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
